@@ -1,6 +1,15 @@
 package sauseDemo;
 
-public class SauseDemoPage  extends SeleniumBase{
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
+
+import java.util.List;
+
+public class SauceDemoPage extends SeleniumBase {
     WebDriver driver;
 
     @FindBy(css = "[id ='login_credentials']")
@@ -63,6 +72,11 @@ public class SauseDemoPage  extends SeleniumBase{
     @FindBy(id = "back-to-products")
     WebElement backToHomeBtn;
 
+    public SauceDemoPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
     public WebElement getBackToHomeBtn() {
         return backToHomeBtn;
     }
@@ -107,11 +121,6 @@ public class SauseDemoPage  extends SeleniumBase{
         return price;
     }
 
-    public SauceDemoPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
-
 
     public void login() {
         String str = userName.getText();
@@ -138,7 +147,7 @@ public class SauseDemoPage  extends SeleniumBase{
         select.selectByIndex(index);
     }
 
-    public void checkProduct() {
+    public void checkProductPrice() {
         for (WebElement elem : prod) {
             System.out.print(elem.getText() + " ");
         }
@@ -148,9 +157,9 @@ public class SauseDemoPage  extends SeleniumBase{
         elem.isDisplayed();
     }
 
-    public void fillForm(String firstName, String lastName, String postalCode) {
-        this.firstName.sendKeys(firstName);
-        this.lastName.sendKeys(lastName);
-        this.postalCode.sendKeys(postalCode);
+    public void fillInfo(String fName, String lName, String pCode) {
+        firstName.sendKeys(fName);
+        lastName.sendKeys(lName);
+        postalCode.sendKeys(pCode);
     }
 }
